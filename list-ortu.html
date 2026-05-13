@@ -8,221 +8,301 @@
     <meta name="color-scheme" content="light only" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="google" content="notranslate" />
-    <title>Undangan Khusus - Keluarga Bapak Guntur Siswantoro</title>
-    <meta name="title" content="Undangan Khusus - Keluarga Bapak Guntur Siswantoro" />
+    <title>Undangan Khusus - Keluarga Ibu Masiatin</title>
+    <meta name="title" content="Undangan Khusus - Keluarga Ibu Masiatin" />
     <meta name="description" content="Kirim undangan pernikahan putra-putri kami - Dewi & Aqim." />
     <meta itemprop="image" content="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/image/Wedding-DA.png" />
     <link rel="icon" type="image/png" href="image/Logo-DA.png" />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/list-ortu.html" />
-    <meta property="og:title" content="Undangan Khusus - Keluarga Bapak Guntur Siswantoro" />
+    <meta property="og:title" content="Undangan Khusus - Keluarga Ibu Masiatin" />
     <meta property="og:description" content="Kirim undangan pernikahan putra-putri kami - Dewi & Aqim." />
     <meta property="og:image" content="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/image/Wedding-DA.png" />
     <link rel="preload" as="image" href="image/bg.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/regular/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/fill/style.css">
+
     <style>
+        :root {
+            --primary: #e6a0ad;
+            --primary-dark: #d88e9b;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
         /* Reset */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f2f5;
-            color: #2c3e50;
-            margin: 0;
-            padding: 30px 15px;
+            font-family: 'Outfit', sans-serif;
+            background-image: url('image/bg.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-dark);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding-bottom: 50px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,240,243,0.8) 100%);
+            z-index: -1;
+        }
+
+        header {
+            padding: 60px 20px 100px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 15px;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            position: sticky;
+            top: 20px;
+            width: 90%;
+            max-width: 450px;
+            margin: -60px auto 30px;
+            z-index: 1000;
         }
 
         #searchInput {
             width: 100%;
-            max-width: 420px;
-            padding: 14px 18px;
-            border-radius: 30px;
-            border: 1.5px solid #bdc3c7;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            margin-bottom: 25px;
-            outline-offset: 2px;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            background-color: white;
-            z-index: 999;
-        }
-
-        #searchInput:focus {
-            background-color: #fdfafa;
-            border-color: #e6a0ad;
-            box-shadow: 0 0 8px rgba(231, 76, 60, 0.3);
+            padding: 16px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            font-size: 16px;
+            font-family: inherit;
+            box-shadow: 0 8px 32px rgba(230, 160, 173, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             outline: none;
         }
 
+        #searchInput:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(230, 160, 173, 0.3);
+            border-color: var(--primary);
+        }
+
         #container {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 60px;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.3;
         }
 
         .invitation {
-            background: #fff;
-            border-radius: 12px;
-            padding: 25px 30px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--shadow);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .inv-header {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-            transition: box-shadow 0.3s ease, transform 0.25s ease;
-            position: relative;
         }
 
-        .invitation:hover {
-            box-shadow: 0 15px 25px rgba(230, 160, 173, 0.25);
-            transform: translateY(-5px);
-            background: rgb(255, 255, 255);
+        .inv-header i {
+            width: 40px;
+            height: 40px;
+            background: rgba(230, 160, 173, 0.15);
+            color: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 15px;
         }
 
-        .invitation h3 {
-            margin-top: 0;
+        .inv-header h3 {
+            font-size: 18px;
             font-weight: 700;
-            color: #e6a0ad;
-            font-size: 1.3rem;
-            letter-spacing: 0.02em;
         }
 
-        .invitation p {
-            line-height: 1.55;
-            font-size: 1rem;
-            color: #34495e;
-            margin-bottom: 1em;
+        .inv-content {
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #4a5568;
         }
 
-        .invitation hr {
-            border: none;
-            border-top: 1px solid #ddd;
-            margin: 10px 0 20px;
+        .inv-content strong {
+            color: var(--text-dark);
+            font-weight: 700;
         }
 
-        .invitation a {
-            color: #e6a0ad;
-            text-decoration: none;
-            word-break: break-word;
-            font-weight: 600;
+        .event-box {
+            background: rgba(230, 160, 173, 0.05);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px 12px 12px 4px;
+            font-size: 13.5px;
         }
 
-        .invitation a:hover {
-            text-decoration: underline;
+        .link-preview {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: var(--primary);
+            word-break: break-all;
+            margin: 15px 0;
+            border: 1px dashed var(--primary);
         }
 
-        
         /* Buttons */
         .btn-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
             margin-top: 25px;
         }
 
         .btn {
             flex: 1;
-            padding: 12px 10px;
+            padding: 14px;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
             text-decoration: none !important;
-            display: inline-block;
-            transition: background-color 0.2s, opacity 0.2s, transform 0.1s;
-        }
-
-        .btn:active {
-            transform: scale(0.97);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
         }
 
         .btn-wa {
-            background-color: #25D366;
+            background: #25D366;
             color: white !important;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
         }
 
         .btn-wa:hover {
-            background-color: #20bd5a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            background: #20bd5a;
         }
 
         .btn-copy {
-            background-color: #e6a0ad;
-            color: white;
-            font-family: inherit;
+            background: white;
+            color: var(--text-dark);
+            border: 1px solid #edf2f7;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
         }
 
         .btn-copy:hover {
-            background-color: #d88e9b;
+            background: #f7fafc;
+            transform: translateY(-2px);
         }
 
-        /* Popup "Tersalin" */
+        /* Popup */
         .copied-popup {
             position: fixed;
-            top: 80px;
+            bottom: 30px;
             left: 50%;
-            transform: translateX(-50%);
-            background-color: #e6a0ad;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-weight: 600;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-dark);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
             font-size: 14px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
+            font-weight: 600;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 9999;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .copied-popup.show {
-            opacity: 1;
-            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
-            body {
-                padding: 20px 10px;
-            }
-
-            #searchInput {
-                width: 90%;
-            }
-
-            .invitation {
-                padding: 20px 15px;
-            }
-
-            .btn-group {
-                flex-direction: column;
-            }
+            header { padding: 40px 20px 80px; }
+            header h1 { font-size: 24px; }
+            .invitation { padding: 20px; }
+            .btn-group { flex-direction: column; }
         }
     </style>
 </head>
 
 <body>
-    <input type="text" id="searchInput" placeholder="Ketik nama teman Anda..." autocomplete="off" />
+    <header>
+        <h1>Undangan Teman Orang Tua</h1>
+        <p>Ketik nama teman Anda untuk membuat teks undangan otomatis.</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Siapa nama teman Anda?" autocomplete="off" />
+    </div>
+
     <div id="container"></div>
 
-    <div id="copyPopup" class="copied-popup">Tersalin!</div>
+    <div id="copyPopup" class="copied-popup">
+        <i class="ph-bold ph-check-circle"></i> Pesan disalin!
+    </div>
 
     <script>
-        // Fungsi ubah teks ke Title Case
         function toTitleCase(str) {
-            return str
-                .toLowerCase()
-                .split(' ')
-                .filter(w => w.length > 0)
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
+            return str.toLowerCase().split(' ').filter(w => w.length > 0).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         }
 
         const container = document.getElementById('container');
@@ -234,33 +314,15 @@
             copyPopup.classList.add('show');
             popupTimeout = setTimeout(() => {
                 copyPopup.classList.remove('show');
-            }, 1800);
+            }, 2000);
         }
 
-        // Fungsi Salinan Super Kuat (Bisa untuk HTTP biasa / HP lokal yang tidak ada HTTPS)
         function copyToClipboard(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                // Konteks Aman (HTTPS atau Localhost Desktop)
-                navigator.clipboard.writeText(text).then(() => {
-                    showCopyPopup();
-                }).catch(() => {
-                    fallbackCopyTextToClipboard(text);
-                });
-            } else {
-                // Fallback untuk HTTP lokal seperti tes dari HP
-                fallbackCopyTextToClipboard(text);
-            }
-        }
-
-        function fallbackCopyTextToClipboard(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            
-            // Hindari scroll ke paling bawah
-            textArea.style.top = "0";
-            textArea.style.left = "0";
             textArea.style.position = "fixed";
-
+            textArea.style.left = "-9999px";
+            textArea.style.top = "0";
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
@@ -269,9 +331,8 @@
                 document.execCommand('copy');
                 showCopyPopup();
             } catch (err) {
-                alert('Wah! Perangkat/Browser Anda memblokir otomatis salin. Silakan salin manual teks undangan tsb.');
+                alert('Gagal menyalin otomatis. Silakan salin manual.');
             }
-
             document.body.removeChild(textArea);
         }
 
@@ -279,99 +340,66 @@
             container.innerHTML = '';
 
             if (filter.trim() === '') {
-                container.innerHTML = `<p style="text-align:center; color:#888; font-style:italic; margin-top: 20px;">Silakan ketik nama teman Anda di kolom pencarian untuk membuat teks undangan.</p>`;
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                        <p>Ketik nama di atas untuk melihat draf pesan</p>
+                    </div>
+                `;
                 return;
             }
 
             const displayName = toTitleCase(filter.trim());
             const encodedName = encodeURIComponent(displayName);
-
             const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
-            const message = `
-*Kepada Yth.*
-Bapak/Ibu/Saudara/i *${displayName}*
+            const inviteUrl = `${baseUrl}?guest=${encodedName}`;
 
----
-
-Dengan hormat,
-Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir
-dalam acara pernikahan putra-putri kami:
-
-*Dewi & Aqim*
-
-*Hari/Tanggal:* Senin, 15 Juni 2026
-*Waktu:* Pukul 12.00 WIB s.d Selesai
-*Tempat:* Jl. Kyai Mundir, Dusun Sarirejo 1, RT 20 RW 03, Desa Kebonsari, Kec. Sumbersuko, Kab. Lumajang
-
-Untuk informasi lebih lengkap serta penunjuk lokasi acara,
-silakan kunjungi undangan digital kami melalui tautan berikut:
-
-${baseUrl}?guest=${encodedName}
-
-Merupakan kehormatan dan kebahagiaan bagi kami
-jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.
-
-Terima kasih atas perhatian dan kehadirannya.
-
-*Hormat kami,*
-*Keluarga Bapak Guntur Siswantoro*
-
----
-            `.trim();
+            const message = `*Assalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Kepada Yth.*\nBapak/Ibu/Saudara/i *${displayName}*\n\nDengan hormat, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan putra-putri kami:\n\n*Dewi & Aqim*\n\n*Hari/Tanggal:* Senin, 15 Juni 2026\n*Waktu:* Pukul 12.00 WIB s.d Selesai\n*Tempat:* Jl. Kyai Mundir, Dusun Sarirejo 1, RT 20 RW 03, Desa Kebonsari, Kec. Sumbersuko, Kab. Lumajang\n\nUntuk informasi lebih lengkap serta penunjuk lokasi acara, silakan kunjungi undangan digital kami melalui tautan berikut:\n\n${inviteUrl}\n\nMerupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.\n\nTerima kasih atas perhatian dan kehadirannya.\n\n*Wassalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Hormat kami,*\n*Keluarga Ibu Masiatin*`.trim();
 
             const wrapper = document.createElement('div');
             wrapper.className = 'invitation';
 
             wrapper.innerHTML = `
-      <h3>Kepada Yth.</h3>
-      <p>Bapak/Ibu/Saudara/i <strong>${displayName}</strong></p>
-      <hr>
-      <p>Dengan hormat,<br>
-      Kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan putra-putri kami:</p>
+                <div class="inv-header">
+                    <i class="ph-fill ph-envelope-simple"></i>
+                    <h3>Draf Undangan</h3>
+                </div>
+                
+                <div class="inv-content">
+                    <p>Kepada Yth.<br>Bapak/Ibu/Saudara/i <strong>${displayName}</strong></p>
+                    <p style="margin-top:10px">Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam pernikahan putra-putri kami:</p>
+                    
+                    <p style="text-align:center; margin:15px 0; font-size:18px; font-weight:700; color:var(--primary)">Dewi & Aqim</p>
+                    
+                    <div class="event-box">
+                        <i class="ph-bold ph-calendar-blank"></i> <strong>Senin, 15 Juni 2026</strong><br>
+                        <i class="ph-bold ph-clock"></i> 12.00 WIB - Selesai<br>
+                        <i class="ph-bold ph-map-pin"></i> Desa Kebonsari, Kec. Sumbersuko, Lumajang
+                    </div>
 
-      <p><strong>Dewi & Aqim</strong></p>
+                    <p>Info lengkap & lokasi:</p>
+                    <div class="link-preview">${inviteUrl}</div>
+                    
+                    <p>Hormat kami,<br><strong>Keluarga Ibu Masiatin</strong></p>
+                </div>
 
-      <p style="margin-left: 10px; border-left: 2px solid #e6a0ad; padding-left: 10px;">
-        <strong>Hari/Tanggal:</strong> Senin, 15 Juni 2026<br>
-        <strong>Waktu:</strong> Pukul 12.00 WIB s.d Selesai<br>
-        <strong>Tempat:</strong> Jl. Kyai Mundir, Dusun Sarirejo 1, RT 20 RW 03, Desa Kebonsari, Kec. Sumbersuko, Kab. Lumajang
-      </p>
+                <div class="btn-group">
+                    <a href="https://wa.me/?text=${encodeURIComponent(message)}" target="_blank" class="btn btn-wa">
+                        <i class="ph-bold ph-whatsapp-logo"></i> Kirim WhatsApp
+                    </a>
+                    <button type="button" class="btn btn-copy">
+                        <i class="ph-bold ph-copy"></i> Salin Pesan
+                    </button>
+                </div>
+            `;
 
-      <p>Untuk informasi lebih lengkap serta penunjuk lokasi acara, silakan kunjungi undangan digital kami melalui tautan berikut:</p>
-      
-      <p><a href="${baseUrl}?guest=${encodedName}" target="_blank" rel="noopener noreferrer">
-      ${baseUrl}?guest=${encodedName}</a></p>
-
-      <p>Merupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.</p>
-
-      <p>Terima kasih atas perhatian dan kehadirannya.</p>
-
-      <p>Hormat kami,<br><strong>Keluarga Bapak Guntur Siswantoro</strong></p>
-
-      <div class="btn-group">
-          <a href="https://wa.me/?text=${encodeURIComponent(message)}" target="_blank" class="btn btn-wa" aria-label="Kirim undangan via WhatsApp">Kirim WA</a>
-          <button type="button" class="btn btn-copy" aria-label="Salin teks undangan">Salin Pesan</button>
-      </div>
-    `;
-
-            const btnCopy = wrapper.querySelector('.btn-copy');
-            btnCopy.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                copyToClipboard(message);
-            });
-
+            wrapper.querySelector('.btn-copy').onclick = () => copyToClipboard(message);
             container.appendChild(wrapper);
         }
 
         const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', () => {
-            renderInvitations(searchInput.value);
-        });
-
-        // Render awal, tanpa nama. Otomatis akan nampilin info petunjuk di tengah
+        searchInput.oninput = () => renderInvitations(searchInput.value);
         renderInvitations('');
     </script>
 </body>
-
 </html>
