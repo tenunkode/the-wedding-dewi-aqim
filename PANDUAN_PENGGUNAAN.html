@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Penggunaan - Manajemen Tamu Dewi & Aqim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e6a0ad;
+            --primary-dark: #d48a99;
+            --primary-light: #fdf2f4;
+            --accent: #25d366;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --bg-body: #f8f9fa;
+            --bg-card: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(230, 160, 173, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2 i {
+            font-style: normal;
+            background: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        .step {
+            margin-bottom: 30px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .badge-primary { background: var(--primary-light); color: var(--primary-dark); }
+        .badge-wa { background: #e9f9ef; color: var(--accent); }
+
+        .ui-preview {
+            background: #f1f3f5;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px dashed #dee2e6;
+        }
+
+        .btn-demo {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .btn-demo:hover {
+            background: var(--primary-dark);
+        }
+
+        .tips {
+            background: #fff9db;
+            border-left: 5px solid #fab005;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 40px;
+        }
+
+        .tips h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #862e00;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #dee2e6;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .card { box-shadow: none; border: 1px solid #eee; break-inside: avoid; }
+            .btn-demo { display: none; }
+            header { margin-bottom: 30px; }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Panduan Penggunaan</h1>
+        <p class="subtitle">Sistem Manajemen Undangan Digital Dewi & Aqim</p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <div class="card">
+        <h2><i>📋</i> Manajemen Daftar Tamu</h2>
+        <p>Halaman ini digunakan untuk menyimpan daftar tamu secara permanen di browser Anda dan mengirimkan pesan undangan yang sudah terpersonalisasi.</p>
+        
+        <div class="ui-preview">
+            <strong>Link Akses:</strong> <code>list-nama.html</code>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">1</span> Menambah Tamu Baru</div>
+            <p>Klik tombol <strong>(+) Merah Muda</strong> di pojok kanan bawah. Masukkan nama lengkap tamu, lalu tekan <strong>Simpan</strong>.</p>
+            <ul>
+                <li>Data akan tersimpan secara otomatis di memori browser Anda (Local Storage).</li>
+                <li>Nama yang sudah ada tidak perlu dimasukkan lagi di masa mendatang.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">2</span> Mencari & Memfilter</div>
+            <p>Gunakan kolom pencarian di bagian atas untuk menemukan nama tamu dengan cepat.</p>
+            <ul>
+                <li>Jika nama tidak ditemukan di daftar, sistem akan membuatkan slot <strong>"MANUAL"</strong> agar Anda tetap bisa mengirim undangan tanpa menyimpannya ke daftar permanen.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">3</span> Mengirim Undangan</div>
+            <p>Setiap nama tamu memiliki dua tombol utama:</p>
+            <ul>
+                <li><span class="badge badge-primary">Salin</span> : Menyalin teks undangan ke clipboard (untuk di-paste manual).</li>
+                <li><span class="badge badge-wa">WA</span> : Membuka aplikasi WhatsApp dan langsung mengisi pesan untuk tamu tersebut.</li>
+            </ul>
+        </div>
+
+        <a href="list-nama.html" class="btn-demo">Buka Manajemen Tamu</a>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="card">
+        <h2><i>👨‍👩‍👧‍👦</i> Undangan Khusus Orang Tua</h2>
+        <p>Halaman ini dirancang khusus untuk Keluarga Bapak Guntur Siswantoro untuk membuat undangan formal secara instan tanpa perlu menyimpan daftar nama.</p>
+
+        <div class="ui-preview">
+            <strong>Link Akses:</strong> <code>list-ortu.html</code>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">1</span> Cara Penggunaan</div>
+            <p>Halaman ini sangat sederhana:</p>
+            <ul>
+                <li>Ketik nama tamu pada kolom pencarian.</li>
+                <li>Teks undangan formal akan muncul secara otomatis di bawah kolom pencarian.</li>
+                <li>Klik <strong>Salin Pesan</strong> atau <strong>Kirim WA</strong> untuk membagikan.</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">2</span> Format Pesan</div>
+            <p>Pesan yang dihasilkan mencantumkan detail lokasi di <strong>Jl. Kyai Mundir, Sumbersuko, Lumajang</strong> dan menyertakan link unik untuk setiap tamu.</p>
+        </div>
+
+        <a href="list-ortu.html" class="btn-demo">Buka Generator Orang Tua</a>
+    </div>
+
+    <!-- TIPS SECTION -->
+    <div class="tips">
+        <h3>💡 Tips Penting</h3>
+        <ul>
+            <li><strong>Sinkronisasi Otomatis:</strong> Daftar nama di <code>list-nama.html</code> kini tersimpan di server. Anda bisa menambah tamu di satu HP dan melihatnya di HP lain secara otomatis setelah halaman dimuat ulang.</li>
+            <li><strong>Data Aman:</strong> Data tidak akan hilang meskipun Anda berganti HP atau menghapus cache browser, karena data tersimpan secara terpusat.</li>
+            <li><strong>Link Unik:</strong> Pastikan Anda menggunakan tombol "Salin" atau "WA" agar setiap tamu menerima link yang menampilkan nama mereka sendiri saat undangan dibuka.</li>
+            <li><strong>Cetak PDF:</strong> Halaman panduan ini sudah dioptimalkan untuk dicetak. Tekan <code>Ctrl + P</code> untuk menyimpannya sebagai dokumen PDF.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Wedding Dewi & Aqim - Created with ❤️ for your special day</p>
+    </footer>
+</div>
+
+</body>
+</html>

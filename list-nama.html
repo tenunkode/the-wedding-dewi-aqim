@@ -348,11 +348,36 @@
 
     <div id="copyPopup" class="copied-popup">✅ Pesan berhasil disalin!</div>
     <script>
-        const defaultGuests = ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
-        let guestList = JSON.parse(localStorage.getItem('weddingGuestList')) || defaultGuests;
+        let guestList = [];
 
-        function saveToStorage() {
-            localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
+        async function fetchGuests() {
+            try {
+                const response = await fetch('api_guests.php');
+                if (!response.ok) throw new Error('Failed to fetch');
+                guestList = await response.json();
+                renderInvitations('');
+            } catch (error) {
+                console.error('Error loading guests:', error);
+                // Fallback to localStorage if server fails
+                guestList = JSON.parse(localStorage.getItem('weddingGuestList')) || ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
+                renderInvitations('');
+            }
+        }
+
+        async function saveToServer() {
+            try {
+                const response = await fetch('api_guests.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(guestList)
+                });
+                if (!response.ok) throw new Error('Save failed');
+                // Also save to localStorage as backup
+                localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
+            } catch (error) {
+                console.error('Error saving guests:', error);
+                showCopyPopup("❌ Gagal sinkron ke server!");
+            }
         }
 
         function toTitleCase(str) {
@@ -386,10 +411,10 @@
             showCopyPopup("✅ Pesan disalin!");
         }
 
-        function deleteGuest(name) {
+        async function deleteGuest(name) {
             if (confirm(`Hapus "${name}"?`)) {
                 guestList = guestList.filter(g => g !== name);
-                saveToStorage();
+                await saveToServer();
                 renderInvitations(searchInput.value);
             }
         }
@@ -453,12 +478,12 @@
             newGuestName.value = '';
         };
 
-        document.getElementById('saveGuest').onclick = () => {
+        document.getElementById('saveGuest').onclick = async () => {
             const name = newGuestName.value.trim();
             if (name) {
                 if (!guestList.includes(name)) {
                     guestList.push(name);
-                    saveToStorage();
+                    await saveToServer();
                     renderInvitations('');
                     showCopyPopup("✅ Tersimpan!");
                 }
@@ -468,7 +493,9 @@
         };
 
         searchInput.oninput = () => renderInvitations(searchInput.value);
-        renderInvitations('');
+        
+        // Initial Load
+        fetchGuests();
     </script>
 </body>
 </html>
