@@ -12,7 +12,7 @@
     <meta name="title" content="Daftar Nama Wedding - Dewi & Aqim" />
     <meta name="description" content="Save the date for the wedding of Dewi & Aqim - 15 Juni 2026." />
     <meta itemprop="image" content="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/image/Wedding-DA.png" />
-    <link rel="icon" type="image/webp" href="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/image/Logo-AV.webp" />
+    <link rel="icon" type="image/png" href="image/Logo-DA.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -22,6 +22,7 @@
     <meta property="og:title" content="Daftar Nama Wedding - Dewi & Aqim" />
     <meta property="og:description" content="Save the date for the wedding of Dewi & Aqim - 15 Juni 2026." />
     <meta property="og:image" content="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/image/Wedding-DA.png" />
+    <link rel="preload" as="image" href="image/bg.webp">
     <style>
         /* Reset */
         * {
@@ -347,41 +348,32 @@
     </div>
 
     <div id="copyPopup" class="copied-popup">✅ Pesan berhasil disalin!</div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore-compat.js"></script>
+
     <script>
+        // --- KONFIGURASI FIREBASE (Disinkronkan dengan index.html) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2fvGxDIvlVwSfD9t0uWUxuKMvItISkEg",
+            authDomain: "wedding-dewi-aqim.firebaseapp.com",
+            projectId: "wedding-dewi-aqim",
+            storageBucket: "wedding-dewi-aqim.firebasestorage.app",
+            messagingSenderId: "1050750238176",
+            appId: "1:1050750238176:web:f682d59df89697190eff85",
+            measurementId: "G-5278RXYF9C"
+        };
+
+        // Inisialisasi Firebase
+        let db;
         let guestList = [];
-
-        async function fetchGuests() {
-            try {
-                const response = await fetch('api_guests.php');
-                if (!response.ok) throw new Error('Failed to fetch');
-                guestList = await response.json();
-                renderInvitations('');
-            } catch (error) {
-                console.error('Error loading guests:', error);
-                // Fallback to localStorage if server fails
-                guestList = JSON.parse(localStorage.getItem('weddingGuestList')) || ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
-                renderInvitations('');
-            }
-        }
-
-        async function saveToServer() {
-            try {
-                const response = await fetch('api_guests.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(guestList)
-                });
-                if (!response.ok) throw new Error('Save failed');
-                // Also save to localStorage as backup
-                localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
-            } catch (error) {
-                console.error('Error saving guests:', error);
-                showCopyPopup("❌ Gagal sinkron ke server!");
-            }
-        }
-
-        function toTitleCase(str) {
-            return str.toLowerCase().split(' ').filter(w => w.length > 0).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            console.log("Firebase Firestore Connected");
+        } catch (e) {
+            console.error("Firebase Error:", e);
         }
 
         const container = document.getElementById('container');
@@ -394,6 +386,49 @@
             copyPopup.textContent = text;
             copyPopup.classList.add('show');
             setTimeout(() => copyPopup.classList.remove('show'), 2000);
+        }
+
+        // --- FIRESTORE SYNC ---
+        function listenToGuests() {
+            if (!db) {
+                guestList = JSON.parse(localStorage.getItem('weddingGuestList')) || ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
+                renderInvitations('');
+                return;
+            }
+
+            // Menggunakan koleksi 'manajemen' dan dokumen 'tamu'
+            db.collection("manajemen").doc("tamu").onSnapshot((doc) => {
+                if (doc.exists) {
+                    guestList = doc.data().list || [];
+                } else {
+                    guestList = ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
+                }
+                localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
+                renderInvitations(searchInput.value);
+            }, (error) => {
+                console.error("Error sync Firestore:", error);
+            });
+        }
+
+        async function saveToFirestore() {
+            if (!db) {
+                localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
+                return;
+            }
+
+            try {
+                await db.collection("manajemen").doc("tamu").set({
+                    list: guestList,
+                    lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (error) {
+                console.error('Error saving to Firestore:', error);
+                showCopyPopup("❌ Gagal simpan ke Cloud!");
+            }
+        }
+
+        function toTitleCase(str) {
+            return str.toLowerCase().split(' ').filter(w => w.length > 0).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         }
 
         function createMessage(displayName, encodedName) {
@@ -414,7 +449,7 @@
         async function deleteGuest(name) {
             if (confirm(`Hapus "${name}"?`)) {
                 guestList = guestList.filter(g => g !== name);
-                await saveToServer();
+                await saveToFirestore();
                 renderInvitations(searchInput.value);
             }
         }
@@ -483,7 +518,7 @@
             if (name) {
                 if (!guestList.includes(name)) {
                     guestList.push(name);
-                    await saveToServer();
+                    await saveToFirestore();
                     renderInvitations('');
                     showCopyPopup("✅ Tersimpan!");
                 }
@@ -494,8 +529,8 @@
 
         searchInput.oninput = () => renderInvitations(searchInput.value);
         
-        // Initial Load
-        fetchGuests();
+        // Mulai sinkronisasi
+        listenToGuests();
     </script>
 </body>
 </html>

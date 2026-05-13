@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panduan Penggunaan - Manajemen Tamu Dewi & Aqim</title>
+    <link rel="icon" type="image/png" href="image/Logo-DA.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -295,14 +296,35 @@
         <a href="list-ortu.html" class="btn-demo">Buka Generator Orang Tua</a>
     </div>
 
+    <!-- SECTION 3: SINKRONISASI CLOUD -->
+    <div class="card">
+        <h2><i>☁️</i> Sinkronisasi Cloud (Firebase)</h2>
+        <p>Sistem ini sudah terhubung secara otomatis dengan akun Firebase yang sama dengan fitur <strong>Kirim Ucapan</strong>.</p>
+        
+        <div class="step">
+            <div class="step-title"><span class="step-number">1</span> Otomatis Aktif</div>
+            <p>Anda tidak perlu melakukan pengaturan kunci API lagi. Sistem sudah mengambil data dari <code>index.html</code>.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">2</span> Keamanan Data</div>
+            <p>Daftar tamu disimpan dalam koleksi database yang aman. Hanya orang yang memiliki akses ke link manajemen ini yang bisa mengedit daftar tamu.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-title"><span class="step-number">3</span> Real-time Sync</div>
+            <p>Setiap perubahan (tambah/hapus tamu) akan langsung tersimpan di Cloud dan muncul di HP lain yang membuka halaman ini tanpa perlu refresh.</p>
+        </div>
+    </div>
+
     <!-- TIPS SECTION -->
     <div class="tips">
         <h3>💡 Tips Penting</h3>
         <ul>
-            <li><strong>Sinkronisasi Otomatis:</strong> Daftar nama di <code>list-nama.html</code> kini tersimpan di server. Anda bisa menambah tamu di satu HP dan melihatnya di HP lain secara otomatis setelah halaman dimuat ulang.</li>
-            <li><strong>Data Aman:</strong> Data tidak akan hilang meskipun Anda berganti HP atau menghapus cache browser, karena data tersimpan secara terpusat.</li>
-            <li><strong>Link Unik:</strong> Pastikan Anda menggunakan tombol "Salin" atau "WA" agar setiap tamu menerima link yang menampilkan nama mereka sendiri saat undangan dibuka.</li>
-            <li><strong>Cetak PDF:</strong> Halaman panduan ini sudah dioptimalkan untuk dicetak. Tekan <code>Ctrl + P</code> untuk menyimpannya sebagai dokumen PDF.</li>
+            <li><strong>Sinkronisasi Real-time:</strong> Dengan Firebase, daftar tamu akan otomatis sinkron antar HP tanpa perlu refresh.</li>
+            <li><strong>Support GitHub Pages:</strong> Sistem ini sekarang 100% kompatibel dengan GitHub Pages.</li>
+            <li><strong>Peringatan Keamanan:</strong> Jangan lupa ubah Rules di Realtime Database Anda ke mode produksi jika acara sudah selesai agar data tidak bisa diakses orang lain.</li>
+            <li><strong>Cetak PDF:</strong> Tekan <code>Ctrl + P</code> untuk menyimpan panduan ini sebagai PDF.</li>
         </ul>
     </div>
 
