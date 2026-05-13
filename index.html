@@ -139,7 +139,7 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(156, 39, 176, 0.1) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
         }
 
@@ -149,13 +149,13 @@
         }
 
         .spinner {
-            border: 8px solid rgba(212, 175, 55, 0.1);
-            border-top: 8px solid #d4af37;
+            border: 8px solid rgba(156, 39, 176, 0.1);
+            border-top: 8px solid var(--inv-accent);
             border-radius: 50%;
             width: 60px;
             height: 60px;
             animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 0 0 60px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(156, 39, 176, 0.5), 0 0 60px rgba(156, 39, 176, 0.3);
             position: relative;
             z-index: 1;
         }
@@ -302,8 +302,8 @@
             animation: bounce 1.5s ease-in-out infinite;
             margin-top: auto;
             font-weight: 900;
-            color: #d4af37;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            color: var(--inv-accent);
+            text-shadow: 0 0 20px rgba(156, 39, 176, 0.8);
         }
 
         .swipe-indicator .arrow-swap-down {
@@ -314,8 +314,8 @@
             animation: bounce-2 1.5s ease-in-out infinite;
             margin-bottom: auto;
             font-weight: 900;
-            color: #d4af37;
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+            color: var(--inv-accent);
+            text-shadow: 0 0 20px rgba(156, 39, 176, 0.8);
         }
 
         .swipe-indicator .text-swap {
@@ -349,12 +349,12 @@
 
         /* Luxury Button Styles with Gold Metallic */
         .btn-pink {
-            border: 2px solid #d4af37;
-            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+            border: 2px solid var(--inv-accent);
+            background: linear-gradient(135deg, var(--inv-accent) 0%, var(--inv-accent-dark) 100%);
             color: #0a1612;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4),
-                        0 0 30px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 20px rgba(156, 39, 176, 0.4),
+                        0 0 30px rgba(156, 39, 176, 0.2);
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -378,11 +378,11 @@
         }
 
         .btn-pink:hover {
-            background: linear-gradient(135deg, #f4e5b8 0%, #d4af37 100%);
+            background: linear-gradient(135deg, var(--inv-accent-light) 0%, var(--inv-accent) 100%);
             color: #0a1612;
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6),
-                        0 0 50px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 30px rgba(156, 39, 176, 0.6),
+                        0 0 50px rgba(156, 39, 176, 0.4);
         }
 
         .btn-whatsapp {
@@ -436,7 +436,7 @@
         .shimmer-effect {
             background: linear-gradient(90deg, 
                 transparent, 
-                rgba(212, 175, 55, 0.2), 
+                rgba(156, 39, 176, 0.2), 
                 transparent);
             background-size: 1000px 100%;
             animation: shimmer 3s infinite;
@@ -445,12 +445,12 @@
         /* Gold Glow Animation */
         @keyframes glow {
             0%, 100% { 
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.4),
-                            0 0 40px rgba(212, 175, 55, 0.2);
+                box-shadow: 0 0 20px rgba(156, 39, 176, 0.4),
+                            0 0 40px rgba(156, 39, 176, 0.2);
             }
             50% { 
-                box-shadow: 0 0 30px rgba(212, 175, 55, 0.6),
-                            0 0 60px rgba(212, 175, 55, 0.4);
+                box-shadow: 0 0 30px rgba(156, 39, 176, 0.6),
+                            0 0 60px rgba(156, 39, 176, 0.4);
             }
         }
 
@@ -460,8 +460,8 @@
 
         /* Luxury Border Animation */
         @keyframes borderGlow {
-            0%, 100% { border-color: rgba(212, 175, 55, 0.3); }
-            50% { border-color: rgba(212, 175, 55, 0.8); }
+            0%, 100% { border-color: rgba(156, 39, 176, 0.3); }
+            50% { border-color: rgba(156, 39, 176, 0.8); }
         }
 
         .border-glow {
@@ -2033,7 +2033,7 @@
                                                     <section style="background-color: rgba(255, 255, 255, 0.4); padding: 1.2rem; border-radius: 1.5rem; max-width: 600px; margin: auto;" class="glass-effect-2 animate__animated animate__fadeInUp animate__slow">
                                                         <div class="h4 mb-2 text-center color-accent font-latin" style="font-size: 30px;">Digital Gift</div>
                                                         
-                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; align-items: center; margin-top: 0.6rem; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(212, 175, 55, 0.3);">
+                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; align-items: center; margin-top: 0.6rem; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(156, 39, 176, 0.3);">
                                                             <img src="image/bca-logo.png" alt="BCA" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 0.8rem; border: 1px solid #eee;" />
                                                             <div style="flex-grow: 1; overflow: hidden;">
                                                                 <p style="margin: 0; color: #333; font-weight: bold; font-family: 'Jost', sans-serif; font-size: 13px;">8161632422</p>
@@ -2042,7 +2042,7 @@
                                                             <button onclick="copyRekening('8161632422', this)" class="btn btn-sm btn-pink rounded-pill" style="font-size: 12px; padding: 2px 8px;"><i class="icon ph-fill ph-copy"></i></button>
                                                         </div>
 
-                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; align-items: center; margin-top: 0.6rem; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(212, 175, 55, 0.3); animation-delay: 0.2s;">
+                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; align-items: center; margin-top: 0.6rem; background: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(156, 39, 176, 0.3); animation-delay: 0.2s;">
                                                             <img src="image/seabank-logo.jpg" alt="Seabank" style="width: 35px; height: 35px; border-radius: 50%; margin-right: 0.8rem; border: 1px solid #eee;" />
                                                             <div style="flex-grow: 1; overflow: hidden;">
                                                                 <p style="margin: 0; color: #333; font-weight: bold; font-family: 'Jost', sans-serif; font-size: 13px;">901312955120</p>
@@ -2051,7 +2051,7 @@
                                                             <button onclick="copyRekening('901312955120', this)" class="btn btn-sm btn-pink rounded-pill" style="font-size: 12px; padding: 2px 8px;"><i class="icon ph-fill ph-copy"></i></button>
                                                         </div>
 
-                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; flex-direction: column; align-items: center; margin-top: 0.8rem; background: rgba(255, 255, 255, 0.8); padding: 8px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(212, 175, 55, 0.3); animation-delay: 0.4s; cursor: pointer;" onclick="showModal(qrisModal)">
+                                                        <div class="bank-card animate__animated animate__fadeIn animate__slow" style="display: flex; flex-direction: column; align-items: center; margin-top: 0.8rem; background: rgba(255, 255, 255, 0.8); padding: 8px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(156, 39, 176, 0.3); animation-delay: 0.4s; cursor: pointer;" onclick="showModal(qrisModal)">
                                                             <img src="image/qris.jpeg" alt="QRIS" style="width: 100%; max-width: 120px; height: auto; border-radius: 8px; border: 1px solid #eee; margin-bottom: 4px;" />
                                                             <p style="margin: 0; color: #666; font-size: 9px; font-family: 'Jost', sans-serif;">Qris Pyon <i class="ph ph-magnifying-glass-plus"></i></p>
                                                         </div>
@@ -2606,22 +2606,15 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-        // const firebaseConfig = {
-        //     apiKey: "AIzaSyB1NLvKZgAuW15YXF6qRoX0cirzNHSU4JM",
-        //     authDomain: "vian-azis.firebaseapp.com",
-        //     projectId: "vian-azis",
-        //     storageBucket: "vian-azis.firebasestorage.app",
-        //     messagingSenderId: "331031282787",
-        //     appId: "1:331031282787:web:5c670c81b9e4e415a1e456"
-        // };
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
-            apiKey: "AIzaSyA0OWfl64jZ_qiPqG6_bAcZZWY_zxY1E-E",
-            authDomain: "wedding-bc79a.firebaseapp.com",
-            projectId: "wedding-bc79a",
-            storageBucket: "wedding-bc79a.firebasestorage.app",
-            messagingSenderId: "299646064505",
-            appId: "1:299646064505:web:de98fc19083394e775c1a8",
-            measurementId: "G-PFY07PYL69"
+        apiKey: "AIzaSyA2fvGxDIvlVwSfD9t0uWUxuKMvItISkEg",
+        authDomain: "wedding-dewi-aqim.firebaseapp.com",
+        projectId: "wedding-dewi-aqim",
+        storageBucket: "wedding-dewi-aqim.firebasestorage.app",
+        messagingSenderId: "1050750238176",
+        appId: "1:1050750238176:web:f682d59df89697190eff85",
+        measurementId: "G-5278RXYF9C"
         };
 
         const app = initializeApp(firebaseConfig);
