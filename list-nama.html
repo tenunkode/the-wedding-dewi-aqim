@@ -228,10 +228,99 @@
                 flex-direction: column;
             }
         }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #e6a0ad;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(230, 160, 173, 0.4);
+            border: none;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1) rotate(90deg);
+            background: #d48a99;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 2px solid #f1f1f1;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .modal-input:focus {
+            border-color: #e6a0ad;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #ff7675;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .btn-delete:hover {
+            transform: scale(1.2);
+            color: #d63031;
+        }
     </style>
 </head>
 
 <body>
+
+    <div class="eid-banner">Manajemen Daftar Tamu - Dewi & Aqim</div>
 
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Cari nama tamu..." autocomplete="off">
@@ -239,106 +328,89 @@
 
     <div id="container"></div>
 
-    <div id="copyPopup" class="copied-popup">✅ Pesan berhasil disalin!</div>
+    <!-- Floating Action Button -->
+    <button class="fab" id="openAddModal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </button>
 
+    <!-- Modal for Adding Guest -->
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="margin-top: 0; color: #e6a0ad;">Tambah Tamu Baru</h2>
+            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Masukkan nama tamu yang ingin Anda tambahkan ke daftar.</p>
+            <input type="text" id="newGuestName" placeholder="Nama Lengkap Tamu" class="modal-input">
+            <div class="modal-actions">
+                <button id="closeModal" class="btn btn-copy" style="flex: 1;">Batal</button>
+                <button id="saveGuest" class="btn btn-wa" style="flex: 2;">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="copyPopup" class="copied-popup">✅ Pesan berhasil disalin!</div>
     <script>
-        const guestListRaw = [
-            "FUTURE KNOWLEDGE","Pencari Berkah","Didin", "Lukman Basgor", "Rizki labruk", "Ghozi", "Azmi", "Mifta", "Huda", "Rifki", "Wahid", "Viky", "Syafi", "Barok", "Rozak", "Iqbal", "Salman", "Rosyi", "Amrizal", "Yoga & Retno", "Tama & Mega", "Joko", "Ghozali", "Zaqi", "Sahid", "Najib", "Yuzika", "Hesti Aprilia Putri", "Laely Nurafiah", "Pak Andi Taru", "Farhan", "Vian", "Rio", "Calvin", "Mail", "Satria", "Ainin dan Fadli", "Lilian", "Ayun", "Devan", "Wildan", "Zhafira", "Irna", "Yaqin", "Habib", "Moklason", "Wira", "Sofyan", "Naufal", "Alan dan Fitri", "Sadid", "Resa", "Alam", "Mas Jefri dan Shela", "Mas Fajri", "Mas Kamal", "Mas Ali", "Mbak Nazila", "Mutik", "Heni", "Kartika", "Almas", "Nuruloh", "Bagus", "Dana", "Fatih", "Dafri", "Sendi", "Sauqi", "Ario", "Iska", "Mas Bondan", "Nissa", "Nirwana", "Rafly", "Mada", "Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"
-        ];
+        const defaultGuests = ["Ridho", "Kapit", "Agum Gumelar", "Efendik", "Amruloh Zainal Arifin"];
+        let guestList = JSON.parse(localStorage.getItem('weddingGuestList')) || defaultGuests;
+
+        function saveToStorage() {
+            localStorage.setItem('weddingGuestList', JSON.stringify(guestList));
+        }
 
         function toTitleCase(str) {
-            return str
-                .toLowerCase()
-                .split(' ')
-                .filter(w => w.length > 0)
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
+            return str.toLowerCase().split(' ').filter(w => w.length > 0).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
         }
 
         const container = document.getElementById('container');
+        const searchInput = document.getElementById('searchInput');
+        const addModal = document.getElementById('addModal');
+        const newGuestName = document.getElementById('newGuestName');
         const copyPopup = document.getElementById('copyPopup');
-        let popupTimeout = null;
 
-        function showCopyPopup() {
-            clearTimeout(popupTimeout);
+        function showCopyPopup(text = "✅ Berhasil!") {
+            copyPopup.textContent = text;
             copyPopup.classList.add('show');
-            popupTimeout = setTimeout(() => {
-                copyPopup.classList.remove('show');
-            }, 2000);
+            setTimeout(() => copyPopup.classList.remove('show'), 2000);
         }
 
         function createMessage(displayName, encodedName) {
-            return `*Assalamu'alaikum Warahmatullahi Wabarakatuh*
-
-*Kepada Yth.*
-Bapak/Ibu/Saudara/i *${displayName}*
-
-Dengan hormat, izinkan kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:
-
-*Dewi & Aqim*
-
-Untuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:
-
-https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}
-
-Merupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.
-
-Terima kasih atas perhatian dan kehadirannya.
-
-*Wassalamu'alaikum Warahmatullahi Wabarakatuh*
-
-*Hormat kami,*
-*Dewi & Aqim*`.trim();
+            return `*Assalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Kepada Yth.*\nBapak/Ibu/Saudara/i *${displayName}*\n\nDengan hormat, izinkan kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:\n\n*Dewi & Aqim*\n\nUntuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:\n\nhttps://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}\n\nMerupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.\n\nTerima kasih atas perhatian dan kehadirannya.\n\n*Wassalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Hormat kami,*\n*Dewi & Aqim*`.trim();
         }
 
         function copyToClipboard(text) {
-            if (!navigator.clipboard) {
-                // Fallback for non-HTTPS or older browsers
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                textArea.style.top = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCopyPopup();
-                } catch (err) {
-                    alert('Gagal menyalin teks. Silakan coba manual.');
-                }
-                document.body.removeChild(textArea);
-                return;
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showCopyPopup("✅ Pesan disalin!");
+        }
+
+        function deleteGuest(name) {
+            if (confirm(`Hapus "${name}"?`)) {
+                guestList = guestList.filter(g => g !== name);
+                saveToStorage();
+                renderInvitations(searchInput.value);
             }
-            navigator.clipboard.writeText(text).then(() => {
-                showCopyPopup();
-            }, (err) => {
-                alert('Gagal menyalin teks. Silakan coba manual.');
-            });
         }
 
         function renderInvitations(filter = '') {
             container.innerHTML = '';
+            const query = filter.trim().toLowerCase();
+            const uniqueNames = [...new Set(guestList)].sort();
             
-            const uniqueNames = [...new Set(guestListRaw)].map(n => n.trim()).sort();
-            
-            let filtered = uniqueNames.filter(name =>
-                name.toLowerCase().includes(filter.toLowerCase())
-            );
+            let filtered = uniqueNames.filter(name => name.toLowerCase().includes(query));
 
-            if (filtered.length === 0 && filter.trim() !== '') {
-                filtered = [filter.trim()];
+            if (query !== '' && !uniqueNames.some(n => n.toLowerCase() === query)) {
+                if (filtered.length === 0) filtered = [filter.trim()];
             }
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding: 50px; color:#a0a0a0; font-style:italic;">
-                    <p>Tidak ada tamu dengan nama tersebut.</p>
-                </div>`;
+                container.innerHTML = `<p style="text-align:center;color:#a0a0a0;margin-top:50px;">Tidak ada tamu ditemukan.</p>`;
                 return;
             }
 
             filtered.forEach(name => {
+                const isManual = !uniqueNames.includes(name);
                 const displayName = toTitleCase(name);
                 const encodedName = encodeURIComponent(displayName);
                 const message = createMessage(displayName, encodedName);
@@ -346,42 +418,55 @@ Terima kasih atas perhatian dan kehadirannya.
 
                 const wrapper = document.createElement('div');
                 wrapper.className = 'invitation';
+                if (isManual) wrapper.style.border = '2px dashed #e6a0ad';
                 
                 wrapper.innerHTML = `
-                    <h3>Kepada Yth.</h3>
-                    <p>Bapak/Ibu/Saudara/i <strong>${displayName}</strong></p>
-                    <hr>
-                    <p>Kami mengundang Anda untuk hadir di pernikahan kami:</p>
-                    <p><strong>Dewi & Aqim</strong></p>
-                    <a href="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}" target="_blank">
-                        https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}
-                    </a>
-                    
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3>${isManual ? 'MANUAL' : 'Tamu'}</h3>
+                            <p><strong>${displayName}</strong></p>
+                        </div>
+                        ${!isManual ? `<button class="btn-delete"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>` : ''}
+                    </div>
                     <div class="actions">
-                        <button class="btn btn-copy">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            Salin Pesan
-                        </button>
-                        <a href="${waUrl}" target="_blank" class="btn btn-wa">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            Kirim WA
-                        </a>
+                        <button class="btn btn-copy">Salin</button>
+                        <a href="${waUrl}" target="_blank" class="btn btn-wa">WA</a>
                     </div>
                 `;
                 
-                wrapper.querySelector('.btn-copy').addEventListener('click', () => {
-                   copyToClipboard(message);
-                });
-
+                wrapper.querySelector('.btn-copy').onclick = () => copyToClipboard(message);
+                if (!isManual) {
+                    wrapper.querySelector('.btn-delete').onclick = () => deleteGuest(name);
+                }
                 container.appendChild(wrapper);
             });
         }
 
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', () => {
-            renderInvitations(searchInput.value);
-        });
+        document.getElementById('openAddModal').onclick = () => {
+            addModal.style.display = 'flex';
+            newGuestName.focus();
+        };
 
+        document.getElementById('closeModal').onclick = () => {
+            addModal.style.display = 'none';
+            newGuestName.value = '';
+        };
+
+        document.getElementById('saveGuest').onclick = () => {
+            const name = newGuestName.value.trim();
+            if (name) {
+                if (!guestList.includes(name)) {
+                    guestList.push(name);
+                    saveToStorage();
+                    renderInvitations('');
+                    showCopyPopup("✅ Tersimpan!");
+                }
+                addModal.style.display = 'none';
+                newGuestName.value = '';
+            }
+        };
+
+        searchInput.oninput = () => renderInvitations(searchInput.value);
         renderInvitations('');
     </script>
 </body>
