@@ -372,7 +372,8 @@
         }
 
         function createMessage(displayName, encodedName) {
-            return `*Assalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Kepada Yth.*\nBapak/Ibu/Saudara/i *${displayName}*\n\nDengan hormat, izinkan kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:\n\n*Dewi & Aqim*\n\nUntuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:\n\nhttps://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}\n\nMerupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.\n\nTerima kasih atas perhatian dan kehadirannya.\n\n*Wassalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Hormat kami,*\n*Dewi & Aqim*`.trim();
+            const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
+            return `*Assalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Kepada Yth.*\nBapak/Ibu/Saudara/i *${displayName}*\n\nDengan hormat, izinkan kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir dalam acara pernikahan kami:\n\n*Dewi & Aqim*\n\nUntuk informasi lengkap mengenai waktu dan tempat acara, silakan kunjungi undangan digital kami melalui tautan berikut:\n\n${baseUrl}?guest=${encodedName}\n\nMerupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.\n\nTerima kasih atas perhatian dan kehadirannya.\n\n*Wassalamu'alaikum Warahmatullahi Wabarakatuh*\n\n*Hormat kami,*\n*Dewi & Aqim*`.trim();
         }
 
         function copyToClipboard(text) {

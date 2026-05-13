@@ -285,6 +285,7 @@
             const displayName = toTitleCase(filter.trim());
             const encodedName = encodeURIComponent(displayName);
 
+            const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
             const message = `
 *Kepada Yth.*
 Bapak/Ibu/Saudara/i *${displayName}*
@@ -304,7 +305,7 @@ dalam acara pernikahan putra-putri kami:
 Untuk informasi lebih lengkap serta penunjuk lokasi acara,
 silakan kunjungi undangan digital kami melalui tautan berikut:
 
-https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}
+${baseUrl}?guest=${encodedName}
 
 Merupakan kehormatan dan kebahagiaan bagi kami
 jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.
@@ -337,8 +338,8 @@ Terima kasih atas perhatian dan kehadirannya.
 
       <p>Untuk informasi lebih lengkap serta penunjuk lokasi acara, silakan kunjungi undangan digital kami melalui tautan berikut:</p>
       
-      <p><a href="https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}" target="_blank" rel="noopener noreferrer">
-      https://caturskak.github.io/the-wedding-catur-chudzaifiyah/?guest=${encodedName}</a></p>
+      <p><a href="${baseUrl}?guest=${encodedName}" target="_blank" rel="noopener noreferrer">
+      ${baseUrl}?guest=${encodedName}</a></p>
 
       <p>Merupakan kehormatan dan kebahagiaan bagi kami jika Bapak/Ibu/Saudara/i dapat hadir dan memberikan doa restu.</p>
 
